@@ -1,0 +1,35 @@
+{
+  "name": "greenbug-monitoring",
+  "version": "0.0.0",
+  "description": "A software to send informations of a server to a Greenbug server. The aim is to do some monitoring.",
+  "main": "greenbug-monitoring.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cedced19/greenbug-monitoring.git"
+  },
+  "keywords": [
+    "monitoring",
+    "bug",
+    "server",
+    "up",
+    "down",
+    "uptime",
+    "ram",
+    "cpu",
+    "greenbug"
+  ],
+  "author": "Cédric JUNG <cedced19@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cedced19/greenbug-monitoring/issues"
+  },
+  "homepage": "https://github.com/cedced19/greenbug-monitoring#readme",
+  "dependencies": {
+    "captains-log": "^1.0.0",
+    "exists-file": "^2.1.0",
+    "jwt-payload-decoder": "^1.2.4"
+  }
+}
