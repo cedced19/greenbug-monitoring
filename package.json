@@ -30,6 +30,7 @@
   "dependencies": {
     "captains-log": "^1.0.0",
     "exists-file": "^2.1.0",
+    "is-url": "^1.2.2",
     "jwt-payload-decoder": "^1.2.4"
   }
 }
