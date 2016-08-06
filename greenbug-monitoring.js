@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var existsFile = require('exists-file');
 var log = require('captains-log')();
+var requestToken = require('./lib/request-token');
 
 var configFile = path.join(__dirname, '/config.json');
 
@@ -12,6 +13,12 @@ if (!existsFile.sync(configFile)) {
 }
 
 var config = require(configFile);
+
+// Check for id
+if (typeof config.id == 'undefined' || config.id === '' || isNaN(config.id)) {
+  log.error('No password defined.');
+  return process.exit(1);
+}
 
 // Check for password
 if (typeof config.password == 'undefined' || config.password === '') {
@@ -34,9 +41,13 @@ if (!existsFile.sync(cachePath)) {
 }
 
 var tokenStorage = require('./lib/token-storage');
-var payload = tokenStorage.getPayload();
+var jwt = {
+  token: tokenStorage.get(),
+  payload: tokenStorage.getPayload(this.token)
+};
 
 // Check if jwt is valid
-if (!payload || payload.exp <= (Date.now() - 86400000)) {
+if (!jwt.payload || jwt.payload.exp <= (Date.now() - 86400000)) {
   log.info('No valid json web token, trying to get it from server.');
+  jwt = requestToken(config);
 }

@@ -5,6 +5,7 @@ A software to send informations of a server to a Greenbug server. The aim is to 
 
 ```json
 {
+  "id": 1,
   "url": "https://example-adress.com/",
   "password": "1FkMtEBySLPxcDL1u3CwexxaEc9lFwiWbUOExhSq8hFjmf26YHh0771BOFghXVpj"
 }

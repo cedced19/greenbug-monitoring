@@ -28,9 +28,10 @@
   },
   "homepage": "https://github.com/cedced19/greenbug-monitoring#readme",
   "dependencies": {
+    "atob": "^2.0.3",
     "captains-log": "^1.0.0",
     "exists-file": "^2.1.0",
     "is-url": "^1.2.2",
-    "jwt-payload-decoder": "^1.2.4"
+    "sync-request": "^3.0.1"
   }
 }
