@@ -4,6 +4,7 @@
   "description": "A software to send informations of a server to a Greenbug server. The aim is to do some monitoring.",
   "main": "greenbug-monitoring.js",
   "scripts": {
+    "start": "node greenbug-monitoring.js",
     "test": "mocha"
   },
   "repository": {
@@ -32,6 +33,7 @@
     "captains-log": "^1.0.0",
     "exists-file": "^2.1.0",
     "is-url": "^1.2.2",
+    "request": "^2.74.0",
     "sync-request": "^3.0.1"
   }
 }

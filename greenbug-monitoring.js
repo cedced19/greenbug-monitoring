@@ -3,6 +3,7 @@ var path = require('path');
 var existsFile = require('exists-file');
 var log = require('captains-log')();
 var requestToken = require('./lib/request-token');
+var request = require('request');
 
 var configFile = path.join(__dirname, '/config.json');
 
@@ -31,6 +32,14 @@ if (typeof config.url == 'undefined' || config.url === '' || !require('is-url')(
   log.error('No valid url defined.');
   return process.exit(1);
 }
+
+// Check if the server is up, it can be do asynchronously
+request(config.url + '/up', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+      return log.info('The Greenbug server is up!');
+  }
+  log.warn('The Greenbug server seems to be down.');
+});
 
 var cachePath = path.join(__dirname, '/.greenbug-cache');
 
