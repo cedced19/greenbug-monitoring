@@ -4,6 +4,7 @@ var existsFile = require('exists-file');
 var log = require('captains-log')();
 var requestToken = require('./lib/request-token');
 var request = require('request');
+var generateRecords = require('./lib/generate-records');
 
 var configFile = path.join(__dirname, '/config.json');
 
