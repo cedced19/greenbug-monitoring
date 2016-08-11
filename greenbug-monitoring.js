@@ -5,6 +5,7 @@ var log = require('captains-log')();
 var requestToken = require('./lib/request-token');
 var request = require('request');
 var generateRecords = require('./lib/generate-records');
+var schedule = require('node-schedule');
 
 var configFile = path.join(__dirname, '/config.json');
 
@@ -35,7 +36,7 @@ if (typeof config.url == 'undefined' || config.url === '' || !require('is-url')(
 }
 
 // Check if the server is up, it can be do asynchronously
-request(config.url + '/up', function (error, response, body) {
+request(config.url + '/up', function (error, response) {
   if (!error && response.statusCode == 200) {
       return log.info('The Greenbug server is up!');
   }
@@ -61,3 +62,22 @@ if (!jwt.payload || jwt.payload.exp <= (Date.now() - 86400000)) {
   log.info('No valid json web token, trying to get it from server.');
   jwt = requestToken(config);
 }
+
+
+// Schedule sending of records
+schedule.scheduleJob('0,15,30,45 * * * *', function (){
+  generateRecords(config, function (err, data) {
+    request.post({
+      url: config.url + '/api/records',
+      headers: {
+          'x-access-token': jwt.token
+      },
+      form: data
+    }, function(error, response) {
+      if (!error && response.statusCode == 200) {
+          return log.info('A new record has just been saved!');
+      }
+      log.error('Cannot save a record.');
+    });
+  });
+});

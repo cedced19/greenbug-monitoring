@@ -14,7 +14,7 @@ A software to send informations of a server to a Greenbug server. The aim is to 
   ]
 }
 ```
-_This content will be automatically given by the Web UI of Greenbug._
+_The authentication informations will be automatically given by the Web UI of Greenbug._
 
 ## Interaction with Greenbug Server
 ![Interaction with Greenbug Server](interaction-with-server.png)
