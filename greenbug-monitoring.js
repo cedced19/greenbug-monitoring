@@ -19,7 +19,7 @@ var config = require(configFile);
 
 // Check for id
 if (typeof config.id == 'undefined' || config.id === '' || isNaN(config.id)) {
-  log.error('No password defined.');
+  log.error('No id defined.');
   return process.exit(1);
 }
 
@@ -57,15 +57,14 @@ var jwt = {
   payload: tokenStorage.getPayload(this.token)
 };
 
-// Check if jwt is valid
-if (!jwt.payload || jwt.payload.exp <= (Date.now() - 86400000)) {
-  log.info('No valid json web token, trying to get it from server.');
-  jwt = requestToken(config);
-}
-
-
 // Schedule sending of records
-schedule.scheduleJob('0,15,30,45 * * * *', function (){
+schedule.scheduleJob('0,15,30,45 * * * *', function () {
+  // Check if jwt is valid
+  if (!jwt.payload || jwt.payload.exp <= (Date.now() - 86400000)) {
+    log.info('No valid json web token, trying to get it from server.');
+    jwt = requestToken(config);
+  }
+  
   generateRecords(config, function (err, data) {
     request.post({
       url: config.url + '/api/records',
